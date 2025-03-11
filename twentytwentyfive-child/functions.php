@@ -1,7 +1,4 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
-}
 function twentytwentyfive_enqueue_child_styles() {
 	wp_enqueue_style( 'twentytwentyfive-style', get_stylesheet_uri() );
 }
@@ -18,9 +15,7 @@ function enqueue_ajax_scripts() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_ajax_scripts');
 
-
 require_once get_stylesheet_directory() . '/includes/rest-books-api.php';
-
 
 function create_books_post_type() {
     $labels = array(
@@ -110,14 +105,12 @@ add_action( 'init', 'create_publisher_taxonomy');
 
 function display_books_query($genre = '', $publisher = '') {
 
-
     $args = array(
         'post_type'      => 'book', 
         'posts_per_page' => '-1',  
         'orderby'        => 'release_date',  
         'order'          => 'ASC',
     );
-
 
     if ($genre) {
         $args['tax_query'][] = array(
@@ -141,7 +134,6 @@ function display_books_query($genre = '', $publisher = '') {
 
     return $books_query;
 }
-
 
 function register_books_rest_api() {
     register_rest_route('books/v1', '/list/', array(
@@ -172,10 +164,6 @@ function register_books_rest_api() {
 }
 add_action('rest_api_init', 'register_books_rest_api');
 
-
-
-
- 
 function cf_search_join( $join ) {
     global $wpdb;
 
